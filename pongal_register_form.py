@@ -189,10 +189,11 @@ if page == "register/payment":
         img.save(img_bytes, format='JPEG')
         img_bytes = img_bytes.getvalue()
         st.download_button(
-                           label='Download QR Code',
-                           data=img_bytes,
-                           file_name = 'prathishgpay.jpeg',
-                           mime='image/jpeg')
+            label='Download QR Code',
+            data=img_bytes,
+            file_name = 'prathishgpay.jpeg',
+            mime='image/jpeg'
+        )
         st.success("""after the payment take screenshot of the payment and attach  the photo to the upload button
                      if you did not upload the file your registration was incomplete make sure it is in jpeg or jfif format
                      upload here👇🏻👇🏻👇🏻""")
