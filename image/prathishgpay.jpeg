@@ -1,1 +1,7 @@
-st.image("images/prathisgpay.jpeg")
+from PIL import Image
+
+img= Image.open(r"C:\Users\Welcome\Downloads\prathish gpay.jpeg")
+
+
+
+st.image(img)
