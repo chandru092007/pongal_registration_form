@@ -167,9 +167,9 @@ if page == "register/payment":
                         st.balloons()
 
     elif st.session_state.page == 'next':
-        if st.session_state.name is None:
+        if st.session_state.name is None or st.session_state.cls is None or st.session_state.roll is None or st.session_state.mobile is None:
             st.error("Please complete the registration form first.")
-            st.stop()
+            st.stop()  # Stop execution if fields are missing
 
         st.title("PAYMENT PAGE")
         st.header("Welcome to the payment page!")
