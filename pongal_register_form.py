@@ -6,6 +6,7 @@ import random
 import smtplib
 from email.message import EmailMessage
 import sqlite3
+from pathlib import Path
 
 for key in ["name", "cls", "roll", "mobile", "otp_generated"]:
     if key not in st.session_state:
@@ -178,8 +179,10 @@ if page == "register/payment":
         st.title("PAYMENT PAGE")
         st.header("Welcome to the payment page!")
         st.write("""please proceed your payment for the pongal event registration.
-                 by using the qrcode below👇🏻👇🏻👇🏻""")    
-        img=Image.open("gpay.jpeg")
+                 by using the qrcode below👇🏻👇🏻👇🏻""")
+        HERE=Path(__file__).parent
+        img_path=HERE /"gpay.jpeg"
+        img=Image.open(img_path)
         st.image(img)
         # Download button for the image
         img_bytes = io.BytesIO()
