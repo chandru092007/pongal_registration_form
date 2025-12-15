@@ -118,6 +118,10 @@ def generator_otp():
         otp += str(random.randint(0,9))
     return otp
 
+def check_duplicate_registration(rollno, mobile):
+    cursor.execute("SELECT * FROM registration WHERE rollno = ? AND mobile = ?", (rollno, mobile))
+    return cursor.fetchone()  # Returns None if no duplicate is found, or the existing row if a duplicate is found
+
 
 
 
