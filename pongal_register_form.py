@@ -179,7 +179,7 @@ if page == "register/payment":
         st.header("Welcome to the payment page!")
         st.write("""please proceed your payment for the pongal event registration.
                  by using the qrcode below👇🏻👇🏻👇🏻""")    
-        img=Image.open("image/prathishgpay.jpeg")
+        img=Image.open(r"image/prathishgpay.jpeg")
         st.image(img)
         # Download button for the image
         img_bytes = io.BytesIO()
