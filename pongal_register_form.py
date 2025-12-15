@@ -151,13 +151,20 @@ if page == "register/payment":
                     st.error("please fill in all the fields.")
                 elif mobile and (len(mobile) != 10 or not mobile.isdigit()):
                     st.error("mobile number must be exactly 10 digits and contains only numbers.")
+                elif roll > 63:  # Limit roll number to 63
+                    st.error("Roll number must not exceed 63.")
                 else:
-                    st.session_state.name = name
-                    st.session_state.cls = cls
-                    st.session_state.roll = int(roll)
-                    st.session_state.mobile = mobile
-                    st.session_state.page = 'next'
-                    st.balloons()
+                    # Check for duplicate registration
+                    if check_duplicate_registration(roll, mobile):
+                        st.error(f"Registration already completed for Roll No: {roll} and Mobile: {mobile}. You cannot register again.")
+                    else:
+            # No duplicates, proceed with registration
+                        st.session_state.name = name
+                        st.session_state.cls = cls
+                        st.session_state.roll = int(roll)
+                        st.session_state.mobile = mobile
+                        st.session_state.page = 'next'
+                        st.balloons()
 
     elif st.session_state.page == 'next':
         if st.session_state.name is None:
@@ -168,7 +175,7 @@ if page == "register/payment":
         st.header("Welcome to the payment page!")
         st.write("""please proceed your payment for the pongal event registration.
                  by using the qrcode below👇🏻👇🏻👇🏻""")    
-        img=Image.open(r"C:\Users\Welcome\Downloads\prathisgpay.jpeg")
+        img=Image.open("images/prathisgpay.jpeg")
         st.image(img)
         # Download button for the image
         img_bytes = io.BytesIO()
@@ -181,7 +188,14 @@ if page == "register/payment":
         uploaded_file = st.file_uploader("upload the payment screenshot", type=['jpeg', 'jfif'])
     
         if uploaded_file is not None:
-            st.success("You have uploaded a payment screenshot. click the Registration button")
+            try:
+        # Open the uploaded image
+                image = Image.open(uploaded_file)
+                st.image(image, caption="Uploaded Payment Screenshot", use_column_width=True)
+                image_bytes = uploaded_file.read()
+                savedb(st.session_state.name, st.session_state.cls, st.session_state.roll, st.session_state.mobile, image_bytes)
+            except Exception as e:
+                st.error(f"Error loading image: {e}")
         else:
             st.warning("""if you did not have the account and have only cash payment
                        please fill your name in the below box we will send a 6 digit otp to the PRATHISH OR CHANDRU
