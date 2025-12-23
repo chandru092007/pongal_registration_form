@@ -9,8 +9,6 @@ import sqlite3
 from pathlib import Path
 
 
-if "registration_saved" not in st.session_state:
-    st.session_state.registration_saved = False
 
 
 for key in ["name", "cls", "roll", "mobile", "otp_generated"]:
@@ -236,7 +234,7 @@ if page == "register/payment":
         colleft,colcenter,colright=st.columns([1,1,1])
         with colleft:
             b1 = st.button("REGISTER NOW")        
-            if b1 and not st.session_state.registration_saved:
+            if b1:
                 if uploaded_file is not None:
                     image_bytes = uploaded_file.read()
                     savedb(
@@ -255,7 +253,6 @@ if page == "register/payment":
                     st.session_state.mobile,
                     b"cash"
                  )
-                    st.session_state.registration_saved = True
                     st.success("Registration completed with cash payment!")
                 else:
                     st.error("Invalid OTP or no file uploaded. Please try again.")
