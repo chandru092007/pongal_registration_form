@@ -255,6 +255,7 @@ if page == "register/payment":
                     st.session_state.mobile,
                     b"cash"
                  )
+                    st.session_state.registration_saved = True
                     st.success("Registration completed with cash payment!")
                 else:
                     st.error("Invalid OTP or no file uploaded. Please try again.")
