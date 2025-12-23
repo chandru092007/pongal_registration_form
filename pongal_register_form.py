@@ -8,6 +8,11 @@ from email.message import EmailMessage
 import sqlite3
 from pathlib import Path
 
+
+if "registration_saved" not in st.session_state:
+    st.session_state.registration_saved = False
+
+
 for key in ["name", "cls", "roll", "mobile", "otp_generated"]:
     if key not in st.session_state:
         st.session_state[key] = None
@@ -231,13 +236,14 @@ if page == "register/payment":
         colleft,colcenter,colright=st.columns([1,1,1])
         with colleft:
             b1 = st.button("REGISTER NOW")        
-            if b1:
+            if b1 and not st.session_state.registration_saved:
                 if uploaded_file is not None:
                     image_bytes = uploaded_file.read()
                     savedb(
                         st.session_state.name,
                         st.session_state.cls,
-                        st.session_state.roll,                        st.session_state.mobile,
+                        st.session_state.roll,               
+                        st.session_state.mobile,
                         image_bytes
                     )
                     st.success("Registration completed with payment screenshot!")
@@ -266,8 +272,12 @@ elif page == "databaseview":
     password_input = st.text_input("Enter admin password", type="password")
     correct_password = "##**"
 
-    if password_input != correct_password:
-        st.warning("Enter correct password to access database tools.")
-        st.stop()
+    if st.button("access database"):
+        if password_input == correct_password:
+            st.success("ACCESS GRANTED🔓!")
+            databasedb()
+        else:
+            st.warning("Enter correct password to access database tools.")
+            st.stop()
 
-    databasedb()
+    
