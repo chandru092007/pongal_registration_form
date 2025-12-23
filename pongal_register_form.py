@@ -215,8 +215,10 @@ if page == "register/payment":
                 image_bytes = uploaded_file.read()
                 savedb(st.session_state.name, st.session_state.cls, st.session_state.roll, st.session_state.mobile, image_bytes)
             except Exception: 
-                st.error("Uploaded file is not a valid image. Please upload a JPEG or JFIF.")        else:
-            st.warning("""if you did not have the account and have only cash payment
+                st.error("Uploaded file is not a valid image. Please upload a JPEG or JFIF.")        
+            else:
+            
+                st.warning("""if you did not have the account and have only cash payment
                        please fill your name in the below box we will send a 6 digit otp to the PRATHISH OR CHANDRU
                        give the money to them and they will say the otp to you. you need to enter the otp int OTP BOX and confirm your registration,
                     you need to upload a file or enter the otp either one is enoungh to register your form
