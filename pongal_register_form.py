@@ -136,10 +136,10 @@ if page == "register/payment":
         col1,col2=st.columns(2)
 
         with col1:
-            st.header("NAME:")
-            st.header("CLASS:")
-            st.header("ROLLNO:")
-            st.header("MOBILE:")
+            st.subheader("NAME:")
+            st.subheader("CLASS:")
+            st.subheader("ROLLNO:")
+            st.subheader("MOBILE:")
         
         
         with col2:
