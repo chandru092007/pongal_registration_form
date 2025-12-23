@@ -49,9 +49,21 @@ def databasedb():
 
     if data:
         df = pd.DataFrame(data, columns=["ID", "Name", "Class", "Roll No", "Mobile", "Payment Image"])
+
+    # Replace raw bytes with labels
+        def label_payment(val):
+            if val == b"cash":
+                return "Cash Payment"
+            elif val is None:
+                return "No Payment"
+            else:
+                return "Online Payment"
+        df["Payment Image"] = df["Payment Image"].apply(label_payment)
+
         st.dataframe(df)
     else:
         st.warning("No registrations found.")
+
 
     # 🔍 View specific row
     st.subheader("🔍 View Specific Row")
