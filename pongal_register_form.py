@@ -235,19 +235,19 @@ if page == "register/payment":
                        give the money to them and they will say the otp to you. you need to enter the otp int OTP BOX and confirm your registration,
                     you need to upload a file or enter the otp either one is enoungh to register your form
                     """)
-            email = st.text_input("enter your name")
-            but = st.button("SEND OTP")
-            if but:
-                generated_otp = generator_otp()
-                st.session_state.otp_generated =generated_otp
-                # sending email to the two different user one is prathish and another one is chandru
-                msg = EmailMessage()
-                msg["Subject"] = "OTP for pongal registration"
-                msg["From"] = from_mail
-                msg["To"] = to_mail
-                msg.set_content(f"Your OTP for Pongal registration is {generated_otp}. Please do not share it with anybody, Mr/Mrs. {st.session_state.name}.")
-                server.send_message(msg)
-                st.success("OTP sent successfully to PRATHISH AND CHANDRU")
+                email = st.text_input("enter your name")
+                but = st.button("SEND OTP")
+                if but:
+                    generated_otp = generator_otp()
+                    st.session_state.otp_generated =generated_otp
+                    # sending email to the two different user one is prathish and another one is chandru
+                    msg = EmailMessage()
+                    msg["Subject"] = "OTP for pongal registration"
+                    msg["From"] = from_mail
+                    msg["To"] = to_mail
+                    msg.set_content(f"Your OTP for Pongal registration is {generated_otp}. Please do not share it with anybody, Mr/Mrs. {st.session_state.name}.")
+                    server.send_message(msg)
+                    st.success("OTP sent successfully to PRATHISH AND CHANDRU")
         otp_entered = st.text_input("enter the otp here")
         colleft,colcenter,colright=st.columns([1,1,1])
         with colleft:
