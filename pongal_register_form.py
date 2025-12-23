@@ -205,7 +205,7 @@ if page == "register/payment":
         st.success("""after the payment take screenshot of the payment and attach  the photo to the upload button
                      if you did not upload the file your registration was incomplete make sure it is in jpeg or jfif format
                      upload here👇🏻👇🏻👇🏻""")
-        uploaded_file = st.file_uploader("upload the payment screenshot", type=['jpeg', 'jfif'])
+        uploaded_file = st.file_uploader("upload the payment screenshot", type=['jpg', 'jfif'])
     
         if uploaded_file is not None:
             try: 
