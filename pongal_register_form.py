@@ -158,14 +158,14 @@ if page == "register/payment":
         with col1:
             st.header("NAME:")
             st.header("CLASS:")
-            st.header("ROLLNO:")
+            st.header("SIZE:")
             st.header("MOBILE:")
         
         
         with col2:
             name=st.text_input("enter your name")
             cls=st.text_input("enter your class")
-            roll=st.number_input("enter your rollno",step=1)
+            roll=st.slider("enter your size",min_value=30,max_value=50,value=32,step=2)
             mobile=st.text_input("enter your mobile number", max_chars=10)
 
         colleft,colcenter,colright=st.columns([1,1,1])
