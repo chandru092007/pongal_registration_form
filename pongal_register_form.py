@@ -7,6 +7,7 @@ import smtplib
 from email.message import EmailMessage
 import sqlite3
 from pathlib import Path
+from PIL import UnidentifiedImageError
 
 
 
@@ -72,7 +73,11 @@ def databasedb():
         img_data = cursor.fetchone()
 
         if img_data and img_data[0] not in (None, b"cash"):
-            st.image(img_data[0], caption=f"Payment Screenshot for ID {img_id}")
+           try: 
+               image = Image.open(io.BytesIO(img_data[0])) 
+               st.image(image, caption=f"Payment Screenshot for ID {img_id}") 
+           except UnidentifiedImageError: 
+               st.error("The uploaded file is not a valid image. Please check the format.")
         elif img_data and img_data[0] == b"cash":
             st.warning("This user registered using CASH. No image available.")
         else:
@@ -203,15 +208,14 @@ if page == "register/payment":
         uploaded_file = st.file_uploader("upload the payment screenshot", type=['jpeg', 'jfif'])
     
         if uploaded_file is not None:
-            try:
-        # Open the uploaded image
-                image = Image.open(uploaded_file)
-                st.image(image, caption="Uploaded Payment Screenshot", use_column_width=True)
+            try: 
+                image = Image.open(uploaded_file) 
+                image.verify() # Check if it's a valid image 
+                uploaded_file.seek(0) # Reset file pointer 
                 image_bytes = uploaded_file.read()
                 savedb(st.session_state.name, st.session_state.cls, st.session_state.roll, st.session_state.mobile, image_bytes)
-            except Exception as e:
-                st.error(f"Error loading image: {e}")
-        else:
+            except Exception: 
+                st.error("Uploaded file is not a valid image. Please upload a JPEG or JFIF.")        else:
             st.warning("""if you did not have the account and have only cash payment
                        please fill your name in the below box we will send a 6 digit otp to the PRATHISH OR CHANDRU
                        give the money to them and they will say the otp to you. you need to enter the otp int OTP BOX and confirm your registration,
