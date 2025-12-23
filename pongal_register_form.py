@@ -270,12 +270,11 @@ elif page == "databaseview":
     password_input = st.text_input("Enter admin password", type="password")
     correct_password = "##**"
 
-    if st.button("access database"):
-        if password_input == correct_password:
-            st.success("ACCESS GRANTED🔓!")
-            databasedb()
-        else:
-            st.warning("Enter correct password to access database tools.")
-            st.stop()
+    if password_input == correct_password:
+        st.success("ACCESS GRANTED🔓!")
+        databasedb()
+    else:
+        st.warning("Enter correct password to access database tools.")
+        st.stop()
 
     
