@@ -125,11 +125,14 @@ def databasedb():
 
 
 
+from_mail = st.secrets["mail"]["from_mail"]
+password = st.secrets["mail"]["password"]
+to_mail = st.secrets["mail"]["to_mail"]
+
 server = smtplib.SMTP('smtp.gmail.com', 587)
 server.starttls()
-from_mail ="chandruveeramani65@gmail.com"
-server.login(from_mail,"aoic ouvx hpeq sxoh")
-to_mail="chandruchandru272007@gmail.com"
+server.login(from_mail, password)
+
 
 
 
